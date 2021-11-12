@@ -1,5 +1,3 @@
-use std::future::Future;
-
 use harvest_time_tracker::{model::UploadEntry, RequestData};
 
 struct RequestMaker(RequestData);

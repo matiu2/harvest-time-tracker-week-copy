@@ -4,11 +4,10 @@ use std::fs::File;
 use std::ops::Add;
 
 use chrono::NaiveDate;
-use harvest_time_tracker::model::{TimeEntry, UploadEntry};
-
-fn parse_date(input: &str) -> NaiveDate {
-    NaiveDate::parse_from_str(input, "%Y-%m-%d").unwrap()
-}
+use harvest_time_tracker::{
+    model::{TimeEntry, UploadEntry},
+    parse_date,
+};
 
 fn main() {
     pretty_env_logger::init();

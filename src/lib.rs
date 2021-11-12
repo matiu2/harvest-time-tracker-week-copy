@@ -1,4 +1,5 @@
 pub mod model;
+use chrono::NaiveDate;
 use reqwest::Client;
 use std::env;
 
@@ -18,4 +19,8 @@ impl RequestData {
             account: env::var("account").expect("`account` environment variable"),
         }
     }
+}
+
+pub fn parse_date(input: &str) -> NaiveDate {
+    NaiveDate::parse_from_str(input, "%Y-%m-%d").unwrap()
 }
