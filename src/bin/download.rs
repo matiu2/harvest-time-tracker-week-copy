@@ -42,7 +42,8 @@ async fn main() {
         }
     }
     // Save what we have to a file
-    println!("Got {}", entries.len());
-    let f = std::fs::File::create("data.json").unwrap();
+    let file_name = "data.json";
+    let f = std::fs::File::create(file_name).unwrap();
     serde_json::ser::to_writer_pretty(f, &entries).unwrap();
+    log::info!("Saved {} pages of entries to {}", entries.len(), file_name);
 }
