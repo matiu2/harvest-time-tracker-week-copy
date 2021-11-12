@@ -1,6 +1,9 @@
 //! Downloads time entries from the API to `data.json`
 
+use std::fs::File;
+
 use harvest_time_tracker::{model::TimeEntries, RequestData};
+use serde_json::ser::to_writer_pretty;
 
 struct RequestMaker(RequestData);
 
@@ -29,21 +32,25 @@ async fn main() {
     let request_maker = RequestMaker(RequestData::from_env());
     // Get all the time_entries
     let mut entries = Vec::new();
+    // The last (most recent) page read
     let mut last = request_maker
         .get_entries("https://api.harvestapp.com/v2/time_entries")
         .await;
     loop {
-        if let Some(next_page) = last.links.next.clone() {
-            entries.push(last);
+        let next_page = last.links.next.clone();
+        // Save the last page we read
+        entries.push(last);
+        // While there's a new page..
+        if let Some(next_page) = next_page {
+            // ..read it
             last = request_maker.get_entries(&next_page).await;
         } else {
-            entries.push(last);
             break;
         }
     }
     // Save what we have to a file
     let file_name = "data.json";
-    let f = std::fs::File::create(file_name).unwrap();
-    serde_json::ser::to_writer_pretty(f, &entries).unwrap();
+    let f = File::create(file_name).unwrap();
+    to_writer_pretty(f, &entries).unwrap();
     log::info!("Saved {} pages of entries to {}", entries.len(), file_name);
 }

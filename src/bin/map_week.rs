@@ -3,7 +3,6 @@
 use std::fs::File;
 use std::ops::Add;
 
-use chrono::NaiveDate;
 use harvest_time_tracker::{
     model::{TimeEntry, UploadEntry},
     parse_date,
