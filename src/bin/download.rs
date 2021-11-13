@@ -12,23 +12,7 @@ async fn main() {
     // Get the token and project from the environment variables
     let harvest_client = HarvestClient::from_env();
     // Get all the time_entries
-    let mut entries = Vec::new();
-    // The last (most recent) page read
-    let mut last = harvest_client
-        .get_entries("https://api.harvestapp.com/v2/time_entries")
-        .await;
-    loop {
-        let next_page = last.links.next.clone();
-        // Save the last page we read
-        entries.push(last);
-        // While there's a new page..
-        if let Some(next_page) = next_page {
-            // ..read it
-            last = harvest_client.get_entries(&next_page).await;
-        } else {
-            break;
-        }
-    }
+    let entries = harvest_client.get_entries().await;
     // Save what we have to a file
     let file_name = "data.json";
     let f = File::create(file_name).unwrap();
