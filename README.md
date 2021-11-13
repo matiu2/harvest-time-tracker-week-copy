@@ -9,6 +9,9 @@ Create a .env file with these variables:
     # Your harvest account number
     account=YYYY
 
+To get your token, log in to your harvest app, then go here: https://id.getharvest.com/developers
+
+To get your account ID / account number, go here: https://id.getharvest.com/ -- then hover over or right click and `Copy Link` one of the account links and see the last part of the URL. (Just clicking it may cause a redirect to some other URL).
 # To repost:
 ## Download all time entries into `data.json`
 
