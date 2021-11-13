@@ -13,8 +13,7 @@ fn main() {
 
     // Get the start date from the parameters
     let start_date = std::env::args()
-        .skip(1)
-        .next()
+        .nth(2)
         .expect("Start date argument. eg. 2021-12-01");
     let start_date = parse_date(&start_date);
 
