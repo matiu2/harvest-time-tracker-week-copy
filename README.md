@@ -1,6 +1,6 @@
 A bunch of programs to re-post my last week's harvest time sheet.
 
-# To configureo
+# To configure
 
 Create a .env file with these variables:
 
@@ -9,7 +9,7 @@ Create a .env file with these variables:
     # Your harvest account number
     account=YYYY
 
-# To repost: 
+# To repost:
 ## Download all time entries into `data.json`
 
     RUST_LOG=info cargo run --bin download # Downloads all the time sheet entries
