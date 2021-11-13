@@ -8,13 +8,16 @@ pub struct HarvestClient {
     pub account: String,
 }
 
+const TOKEN_NAME: &str = "token";
+const ACCOUNT_NAME: &str = "account_id";
+
 impl HarvestClient {
     /// Create the data from environment variables
     pub fn from_env() -> HarvestClient {
         HarvestClient {
             client: reqwest::Client::new(),
-            token: env::var("token").expect("`token` environment variable"),
-            account: env::var("account").expect("`account` environment variable"),
+            token: env::var(TOKEN_NAME).expect("`token` environment variable"),
+            account: env::var(ACCOUNT_NAME).expect("`account` environment variable"),
         }
     }
 

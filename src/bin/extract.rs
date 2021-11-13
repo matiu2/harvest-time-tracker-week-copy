@@ -4,8 +4,8 @@ use std::fs::File;
 
 use chrono::Duration;
 use harvest_time_tracker::{
+    date::FromHarvestDate,
     model::{TimeEntries, TimeEntry},
-    parse_date,
 };
 fn main() {
     pretty_env_logger::init();
@@ -16,7 +16,7 @@ fn main() {
         .take(1)
         .next()
         .expect("Start of week to copy from required");
-    let start = parse_date(&start);
+    let start = start.from_harvest_date();
     let end = start + Duration::days(5);
 
     // Read the data
@@ -27,7 +27,7 @@ fn main() {
     // Now get all the entries that are in our week
     let week: Vec<&TimeEntry> = entries()
         .filter(|e| {
-            let date = parse_date(&e.spent_date);
+            let date = e.spent_date.from_harvest_date();
             date >= start && date <= end
         })
         .inspect(|entry| log::debug!("Saving entry: {:?}", entry))

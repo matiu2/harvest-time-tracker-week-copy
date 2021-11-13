@@ -7,7 +7,7 @@ Create a .env file with these variables:
     # Your harvest API token
     token=XXXX
     # Your harvest account number
-    account=YYYY
+    account_id=YYYY
 
 To get your token, log in to your harvest app, then go here: https://id.getharvest.com/developers
 
