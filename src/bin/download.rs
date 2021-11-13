@@ -2,10 +2,10 @@
 
 use std::fs::File;
 
-use harvest_time_tracker::{model::TimeEntries, RequestData};
+use harvest_time_tracker::{model::TimeEntries, HarvestClient};
 use serde_json::ser::to_writer_pretty;
 
-struct RequestMaker(RequestData);
+struct RequestMaker(HarvestClient);
 
 impl RequestMaker {
     async fn get_entries(&self, url: &str) -> TimeEntries {
@@ -29,7 +29,7 @@ async fn main() {
     dotenv::dotenv().ok();
     pretty_env_logger::init();
     // Get the token and project from the environment variables
-    let request_maker = RequestMaker(RequestData::from_env());
+    let request_maker = RequestMaker(HarvestClient::from_env());
     // Get all the time_entries
     let mut entries = Vec::new();
     // The last (most recent) page read

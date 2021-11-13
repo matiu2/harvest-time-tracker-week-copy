@@ -1,6 +1,6 @@
-use harvest_time_tracker::{model::UploadEntry, RequestData};
+use harvest_time_tracker::{model::UploadEntry, HarvestClient};
 
-struct RequestMaker(RequestData);
+struct RequestMaker(HarvestClient);
 
 impl RequestMaker {
     async fn upload_entry(&self, entry: &UploadEntry) {
@@ -31,7 +31,7 @@ async fn main() {
     let data: Vec<UploadEntry> = serde_json::de::from_reader(f).unwrap();
 
     // Upload them all
-    let request_maker = RequestMaker(RequestData::from_env());
+    let request_maker = RequestMaker(HarvestClient::from_env());
     for entry in data {
         request_maker.upload_entry(&entry).await
     }
